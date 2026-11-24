@@ -1,26 +1,48 @@
 @import "tailwindcss";
 
+/* 色はここで一括管理。Tailwind では bg-go / text-muted のように使える */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --bg: #eef1f6;
+  --fg: #182033;
+  --muted: #5d6680;
+  --panel: #ffffff;
+  --wait: #d8434b;
+  --go: #1fa35c;
+  --early: #e8952b;
+  --idle: #2f5bd3;
+  color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --bg: #11151f;
+    --fg: #e9edf7;
+    --muted: #9aa3bd;
+    --panel: #1b2130;
+    --wait: #c23a42;
+    --go: #1d9455;
+    --early: #d08424;
+    --idle: #3d63d6;
+    color-scheme: dark;
   }
 }
 
+@theme inline {
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-panel: var(--panel);
+  --color-wait: var(--wait);
+  --color-go: var(--go);
+  --color-early: var(--early);
+  --color-idle: var(--idle);
+  --font-sans: "Hiragino Sans", "Noto Sans JP", "Yu Gothic UI", system-ui, sans-serif;
+  --font-num: var(--font-space-grotesk), "Helvetica Neue", Arial, sans-serif;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
 }
