@@ -1,10 +1,12 @@
 "use client";
 
+import Link from "next/link";
 import { useReactionGame } from "@/hooks/useReactionGame";
 import { useRecords } from "@/hooks/useRecords";
 import { ROUNDS, rate } from "@/lib/reaction";
 import { ProgressDots } from "./ProgressDots";
 import { RecentRecords } from "./RecentRecords";
+import { SubmitScore } from "./SubmitScore";
 import { TapPad } from "./TapPad";
 
 function Ms({ value }: { value: number }) {
@@ -28,9 +30,14 @@ export function ReactionGame() {
     <>
       <header className="flex items-baseline justify-between gap-3">
         <h1 className="text-lg font-extrabold">反射神経テスト</h1>
-        <p className="text-sm text-muted">
-          自己ベスト <b className="font-num text-fg tabular-nums">{best ? `${best}ms` : "—"}</b>
-        </p>
+        <div className="flex items-baseline gap-3 text-sm text-muted">
+          <p>
+            自己ベスト <b className="font-num text-fg tabular-nums">{best ? `${best}ms` : "—"}</b>
+          </p>
+          <Link href="/ranking" className="font-bold text-idle underline-offset-4 hover:underline">
+            ランキング
+          </Link>
+        </div>
       </header>
 
       <TapPad phase={game.phase} onTap={game.tap}>
@@ -75,7 +82,11 @@ export function ReactionGame() {
       </TapPad>
 
       <ProgressDots total={ROUNDS} done={game.times.length} />
-      <RecentRecords records={records} best={best} />
+      {game.phase === "done" ? (
+        <SubmitScore key={game.times.join("-")} times={game.times} />
+      ) : (
+        <RecentRecords records={records} best={best} />
+      )}
     </>
   );
 }
